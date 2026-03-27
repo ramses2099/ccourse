@@ -1,33 +1,22 @@
-CC = cc
-CFLAG = -g -Wall
-OBJS = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
-SRCS = $(wildcard $(SRC)/*.c)
-BINDIR = bin
-BIN = $(BINDIR)/main
-SRC = src
-OBJ = obj
-SUBMITNAME=project01.zip
+CC = gcc
+CFLAG = -Wall -Wextra -std=c11 -O2
+
+SRC = src/main.c
+OBJ = build/main.o
+TARGET = bin/app
 RM = rm
 
-all:$(BIN)
+all:$(TARGET)
 
-realease: CFLAG= -Wall -02 -DNDEBUG
-realease: clean
-realease: $(BIN)
+$(TARGET): $(OBJ)
+	$(CC) $(OBJ) -o $(TARGET)
 
-$(BIN):$(OBJS)
-	$(CC) $(CFLAG) $(OBJS) -o $@
+$(OBJ): $(SRC)
+	$(CC) $(CFLAG) -c $(SRC) -o $(OBJ)
 
-$(OBJ)/%.o: $(SRC)/%.c
-	$(CC) $(CFLAG) -c $< -o $@
+run: $(TARGET)
+	./$(TARGET)
 
 clean:
-	$(RM) -rf $(BINDIR)/* $(OBJ)/*
-
-submit:
-	$(RM) $(SUBMITNAME)
-	zip $(SUBMITNAME) $(BIN)
-
-
-
+	$(RM) -rf $(TARGET) $(OBJ)
 
