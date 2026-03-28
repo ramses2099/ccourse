@@ -1,22 +1,27 @@
+# Compiler
 CC = gcc
-CFLAG = -Wall -Wextra -std=c11 -O2
+CFLAG = -Wall -Wextra -Iinclude
 
-SRC = src/main.c
-OBJ = build/main.o
-TARGET = bin/app
-RM = rm
+OBJ_DIR = obj
+BIN_DIR = bin
+SRC_DIR = src
 
-all:$(TARGET)
+TARGET = $(BIN_DIR)/app
+OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/queue.o
+# Targets
+all: $(TARGET)
 
-$(TARGET): $(OBJ)
-	$(CC) $(OBJ) -o $(TARGET)
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAG) $(OBJS) -o $@
 
-$(OBJ): $(SRC)
-	$(CC) $(CFLAG) -c $(SRC) -o $(OBJ)
-
-run: $(TARGET)
-	./$(TARGET)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CFLAG) -c $< -o $@ 
 
 clean:
-	$(RM) -rf $(TARGET) $(OBJ)
+	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/app
+
+.PHONY: all clean
+
+
+
 
