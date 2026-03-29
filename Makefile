@@ -7,7 +7,7 @@ BIN_DIR = bin
 SRC_DIR = src
 
 TARGET = $(BIN_DIR)/app
-OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/queue.o
+OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/linkedlist.o
 # Targets
 all: $(TARGET)
 
