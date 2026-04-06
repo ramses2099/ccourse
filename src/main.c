@@ -1,24 +1,33 @@
-#include "linkedlist.h"
+#include "set.h"
 #include <stdbool.h>
 #include <stdio.h>
 
 int main(void) {
-  node_t *head = NULL;
-  node_t *tmp = NULL;
+  Set *set_a = init();
 
-  int i = 0;
-  for (i = 0; i <= 20; i++) {
-    tmp = create_new_node(i);
-    insert_at_head(&head, tmp);
-    head = tmp;
+  if (is_empty(set_a)) {
+    printf("Set is empty\n");
   }
 
-  tmp = find_node(head, 13);
-  printf("found node with value %d\n", get_node_value(tmp));
+  set_insert(set_a, 5);
+  set_insert(set_a, 6);
+  set_insert(set_a, 7);
 
-  insert_after_node(tmp, create_new_node(25));
+  printf("Set a Elements:\n");
+  set_print(set_a);
 
-  print_list(head);
+  Set *set_b = init();
+
+  set_insert(set_b, 8);
+  set_insert(set_b, 9);
+  set_insert(set_b, 3);
+
+  printf("Set b Elements:\n");
+  set_print(set_b);
+
+  Set *set_c = set_union(set_a, set_b);
+  printf("A union B: \n");
+  set_print(set_c);
 
   printf("end...\n");
   return 0;
